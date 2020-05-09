@@ -4,7 +4,7 @@ PHP7 solution and refactoring for Gilded Rose Kata task
 
 After implementing everyting in README file you can run tests in test/GildedRoseTest.php with phpunit.
 
-Also you can check it visually by running fixtures/testtext_fixture.php file
+Also you can check it visually by running fixtures/texttest_fixture.php file
 
 Solution - working principles explanations are written as a little documentation inside test/GildedRoseTest.php
 

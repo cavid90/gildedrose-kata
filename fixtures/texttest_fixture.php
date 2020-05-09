@@ -14,7 +14,7 @@ echo "OMGHAI!\n";
  * Legendary - remains the same, does not change
  * After this grouping it was simple to write code with DRY, KISS and SOLID principles
  */
-$itemsByTypes = array(
+$itemsByTypes = [
     // The item quality increase
     "special" => [
         new Item('Aged Brie', 2, 0),
@@ -34,7 +34,7 @@ $itemsByTypes = array(
         new Item('Sulfuras, Hand of Ragnaros', -1, 80)
     ]
 
-);
+];
 
 $app = new GildedRose($itemsByTypes);
 $app->setMinQuality(0)->setMaxQuality(50);

@@ -74,7 +74,7 @@ class GildedRoseTest extends TestCase {
      * 3 day - 6 - 1
      * 2 day - 5 - 2
      * 1 day - 3 - 2
-     * 0 - Last day - 1
+     * 0 - Last result - 1
      */
     public function testNonSpecialItemQualityLessThanZeroReturnZero()
     {
