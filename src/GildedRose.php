@@ -36,6 +36,14 @@ final class GildedRose {
     }
 
     /**
+     * Get items
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+    /**
      * Set maximum default quality
      * @param $quality
      * @return $this
@@ -70,9 +78,23 @@ final class GildedRose {
     public function updateQuality() {
         foreach ($this->items as $type => $items) {
             foreach ($items as $item) {
-                $item->sell_in = $item->sell_in - 1;
-                if($type != 'legendary' && $item->quality >= $this->getMinQuality() && $item->quality <= $this->getMaxQuality()) {
+                if($type == 'legendary') {
+                    // Legendary item does not have to be sold, that is why we dont calculate sell_in for it and just return the same quality
                     $item->quality = $this->setQuality($item, $type);
+                } else {
+                    // For others we decrease sell_in and calculate quality
+                    if($item->quality >= $this->getMinQuality() && $item->quality <= $this->getMaxQuality()) {
+                        $item->quality = $this->setQuality($item, $type);
+                    } else {
+                        // if it is non special item then we return minimum default quality otherwise maximum default quality
+                        if($item->quality < 0) {
+                            $item->quality = $this->getMinQuality();
+                        } else {
+                            $item->quality = $this->getMaxQuality();
+                        }
+                    }
+                    // Decrease sell in date
+                    $item->sell_in = $item->sell_in - 1;
                 }
             }
         }

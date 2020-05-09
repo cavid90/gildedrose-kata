@@ -38,6 +38,7 @@ class QualityCalculator implements IQualityCalculator
     public function calculateNonSpecial($item)
     {
         $num = $item->name == 'Conjured Mana Cake' ? 2 : 1;
+        if($item->sell_in <= 0) {$num = $num * 2;} // quality decreases twice as fast if sell in lower than 0
         $newQuality = $item->quality - $num;
         return $newQuality;
     }
