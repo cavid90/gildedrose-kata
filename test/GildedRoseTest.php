@@ -1,8 +1,9 @@
 <?php
 
 namespace App;
+use \PHPUnit\Framework\TestCase;
 
-class GildedRoseTest extends \PHPUnit\Framework\TestCase {
+class GildedRoseTest extends TestCase {
 
     /**
      * Testing legendary item quality
@@ -35,7 +36,8 @@ class GildedRoseTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * Test non special item quality- 7 days. Also if sell in goes lower than zero
+     * Test non special item quality- 7 days. Quality: 15
+     * Also if sell in goes lower than zero
      * then should decrease twice as fast
      * 7 day - 15 - 1
      * 6 day - 14 - 1
@@ -64,7 +66,7 @@ class GildedRoseTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * If quality is less than zero then return zero
+     * If quality is less than zero then return zero. Quality 10
      * 7 day - 10 - 1
      * 6 day - 9 - 1
      * 5 day - 8 - 1
@@ -108,7 +110,7 @@ class GildedRoseTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * Check the result for Conjured mana cake for 3 days
+     * Check the result for Conjured mana cake for 3 days. Quality: 7
      * 3 day - 7
      * 2 day - 5
      * 1 day - 3
@@ -149,7 +151,7 @@ class GildedRoseTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * Testing Backstage passes 6 days result
+     * Testing Backstage passes 6 days result. Quality: 7
      * 6 day - 7 + 2
      * 5 day - 9 + 3
      * 4 day - 12 + 3
