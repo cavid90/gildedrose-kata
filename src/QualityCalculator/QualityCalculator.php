@@ -4,7 +4,7 @@
 namespace App\QualityCalculator;
 
 
-class QualityCalculator implements IQualityCalculator
+class QualityCalculator implements QualityCalculatorInterface
 {
     /**
      * Calculation for special items

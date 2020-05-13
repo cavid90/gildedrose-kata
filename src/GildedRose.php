@@ -4,7 +4,16 @@ namespace App;
 
 final class GildedRose {
 
-    private $items = [];
+    /** Item instance
+     * @var
+     */
+    private $item;
+
+    /**
+     * Quality calculator
+     * @var QualityCalculator\QualityCalculator \
+     */
+    private $qualityCalculator;
 
     /**Default minimum quality
      * @var int
@@ -17,13 +26,16 @@ final class GildedRose {
     private $maxQuality = 50;
 
     /** Construct
-     * GildedRose constructor.
-     * @param $items
+     * GildedRose constructor
      */
-    public function __construct($items) {
-        $this->items = $items;
+    public function __construct() {
+        $this->qualityCalculator = new QualityCalculator\QualityCalculator();
     }
 
+    public function setItem(Item $item) {
+        $this->item = $item;
+        return $this;
+    }
     /**
      * Set minimum default quality
      * @param $quality
@@ -35,14 +47,6 @@ final class GildedRose {
         return $this;
     }
 
-    /**
-     * Get items
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
     /**
      * Set maximum default quality
      * @param $quality
@@ -72,32 +76,42 @@ final class GildedRose {
         return $this->maxQuality;
     }
 
-    /**
-     * Update item quality
+    /** Update quality one by one
+     * @return mixed
      */
-    public function updateQuality() {
-        foreach ($this->items as $type => $items) {
-            foreach ($items as $item) {
-                if($type == 'legendary') {
-                    // Legendary item does not have to be sold, that is why we dont calculate sell_in for it and just return the same quality
-                    $item->quality = $this->setQuality($item, $type);
+    public function updateQualityByOne() {
+
+        if($this->item->name == 'Sulfuras, Hand of Ragnaros') {
+            // Legendary item does not have to be sold, that is why we dont calculate sell_in for it and just return the same quality
+            $this->item->quality = $this->setQuality('legendary');
+        } else {
+            if($this->isQualityBetweenMinAndMax($this->item)) {
+                if($this->item->name == 'Aged Brie' || $this->item->name == 'Backstage passes to a TAFKAL80ETC concert') {
+                    $this->item->quality = $this->setQuality('special');
                 } else {
-                    // For others we decrease sell_in and calculate quality
-                    if($item->quality >= $this->getMinQuality() && $item->quality <= $this->getMaxQuality()) {
-                        $item->quality = $this->setQuality($item, $type);
-                    } else {
-                        // if it is non special item then we return minimum default quality otherwise maximum default quality
-                        if($item->quality < 0) {
-                            $item->quality = $this->getMinQuality();
-                        } else {
-                            $item->quality = $this->getMaxQuality();
-                        }
-                    }
-                    // Decrease sell in date
-                    $item->sell_in = $item->sell_in - 1;
+                    $this->item->quality = $this->setQuality('non-special');
+                }
+            } else {
+                if($this->item->quality < 0) {
+                    $this->item->quality = $this->getMinQuality();
+                } else {
+                    $this->item->quality = $this->getMaxQuality();
                 }
             }
         }
+        // Decrease sell in date
+        $this->item->sell_in = $this->item->sell_in - 1;
+        return $this->item;
+
+    }
+
+    /** Validate item minimum/maximum quality
+     * @param $item
+     * @return bool
+     */
+    public function isQualityBetweenMinAndMax($item)
+    {
+        return $item->quality >= $this->getMinQuality() && $item->quality <= $this->getMaxQuality();
     }
 
     /**
@@ -106,9 +120,10 @@ final class GildedRose {
      * @param $type
      * @return int|mixed
      */
-    protected function setQuality($item, $type)
+    protected function setQuality($type)
     {
-        $qualityCalculator = new QualityCalculator\QualityCalculator();
+        $item = $this->item;
+        $qualityCalculator = $this->qualityCalculator;
         switch ($type) {
             case "non-special":
                 $newQuality = $qualityCalculator->calculateNonSpecial($item);

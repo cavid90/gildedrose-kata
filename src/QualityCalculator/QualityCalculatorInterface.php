@@ -4,7 +4,7 @@
 namespace App\QualityCalculator;
 
 
-interface IQualityCalculator
+interface QualityCalculatorInterface
 {
     public function calculateNonSpecial($item);
 
