@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\QualityCalculator\QualityCalculator;
+
 final class GildedRose {
 
     /** Item instance
@@ -11,7 +13,7 @@ final class GildedRose {
 
     /**
      * Quality calculator
-     * @var QualityCalculator\QualityCalculator \
+     * @var QualityCalculator
      */
     private $qualityCalculator;
 
@@ -25,11 +27,12 @@ final class GildedRose {
      */
     private $maxQuality = 50;
 
-    /** Construct
-     * GildedRose constructor
+    /**
+     * GildedRose constructor.
+     * @param QualityCalculator $qualityCalculator
      */
-    public function __construct() {
-        $this->qualityCalculator = new QualityCalculator\QualityCalculator();
+    public function __construct(QualityCalculator $qualityCalculator) {
+        $this->qualityCalculator = $qualityCalculator;
     }
 
     public function setItem(Item $item) {

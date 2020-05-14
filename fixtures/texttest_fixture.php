@@ -32,7 +32,9 @@ $items = [
 
 ];
 
-$app = new GildedRose();
+// Define container and bind GildedRose class
+$container = new \DI\Container();
+$app = $container->get(GildedRose::class);
 $app->setMinQuality(0)->setMaxQuality(50);
 
 $days = 2;
@@ -50,7 +52,6 @@ echo PHP_EOL;
 
 // Update and show results day by day
 for ($i = $days; $i > 0; $i--) {
-    //$app->updateQuality();
     echo("################### day ".($i)." #########################\n");
     echo("name, sellIn, quality\n");
     foreach ($items as $item) {

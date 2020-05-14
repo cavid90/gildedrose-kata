@@ -6,5 +6,8 @@
         "psr-4": {
             "App\\": "src/"
         }
+    },
+    "require": {
+        "php-di/php-di": "^6.1"
     }
 }

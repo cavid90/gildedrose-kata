@@ -5,6 +5,18 @@ use \PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase {
 
+    protected $app;
+
+    /**
+     * Bind GildedRose class before test
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
+     */
+    protected function setUp(): void
+    {
+        $container = new \DI\Container();
+        $this->app = $container->get(GildedRose::class);
+    }
     /**
      * Testing legendary item quality
      */
@@ -12,9 +24,8 @@ class GildedRoseTest extends TestCase {
         $items = [
             new Item("Sulfuras, Hand of Ragnaros", 3, 80)
         ];
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
-        $gildedRose->updateQualityByOne();
+
+        $this->app->setItem($items[0])->updateQualityByOne();
         $this->assertEquals(80, $items[0]->quality);
     }
 
@@ -27,9 +38,7 @@ class GildedRoseTest extends TestCase {
             new Item('Elixir of the Mongoose', 5, 7)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
-        $gildedRose->updateQualityByOne();
+        $this->app->setItem($items[0])->updateQualityByOne();
         $this->assertEquals(6, $items[0]->quality);
     }
 
@@ -44,11 +53,10 @@ class GildedRoseTest extends TestCase {
             new Item('Elixir of the Mongoose', 5, 15)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
+        $this->app->setItem($items[0]);
         $days = 7;
         for($i=$days; $i >= 1; $i--) {
-            $gildedRose->updateQualityByOne();
+            $this->app->updateQualityByOne();
         }
         $this->assertEquals(6, $items[0]->quality);
     }
@@ -62,11 +70,10 @@ class GildedRoseTest extends TestCase {
             new Item('Elixir of the Mongoose', 5, 10)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
+        $this->app->setItem($items[0]);
         $days = 7;
         for($i=$days; $i >= 1; $i--) {
-            $gildedRose->updateQualityByOne();
+            $this->app->updateQualityByOne();
         }
 
         $this->assertEquals(1, $items[0]->quality);
@@ -81,9 +88,7 @@ class GildedRoseTest extends TestCase {
             new Item('Conjured Mana Cake', 5, 7)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
-        $gildedRose->updateQualityByOne();
+        $this->app->setItem($items[0])->updateQualityByOne();
         $this->assertEquals(5, $items[0]->quality);
     }
 
@@ -97,11 +102,10 @@ class GildedRoseTest extends TestCase {
             new Item('Conjured Mana Cake', 5, 7)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
+        $this->app->setItem($items[0]);
         $days = 3;
         for($i=$days; $i >= 1; $i--) {
-            $gildedRose->updateQualityByOne();
+            $this->app->updateQualityByOne();
         }
 
         $this->assertEquals(1, $items[0]->quality);
@@ -117,9 +121,7 @@ class GildedRoseTest extends TestCase {
             new Item('Aged Brie', 5, 3)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
-        $gildedRose->updateQualityByOne();
+        $this->app->setItem($items[0])->updateQualityByOne();
         $this->assertEquals(4, $items[0]->quality);
     }
 
@@ -132,11 +134,10 @@ class GildedRoseTest extends TestCase {
             new Item('Backstage passes to a TAFKAL80ETC concert', 6, 7)
         ];
 
-        $gildedRose = new GildedRose();
-        $gildedRose->setItem($items[0]);
+        $this->app->setItem($items[0]);
         $days = 6;
         for($i=$days; $i >= 1; $i--) {
-            $gildedRose->updateQualityByOne();
+            $this->app->updateQualityByOne();
         }
 
         $this->assertEquals(24, $items[0]->quality);
