@@ -1,6 +1,7 @@
 PHP7 solution and refactoring for Gilded Rose Kata task
 -------------------------------------------------------
 ####Task url: https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/master/GildedRoseRequirements.txt
+
 PHP-DI container was added
 
 After implementing everyting in README file you can run tests in test/GildedRoseTest.php with phpunit.
